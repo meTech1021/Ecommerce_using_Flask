@@ -1,0 +1,121 @@
+{% extends 'layout/layout.html' %}
+
+
+{% block page_js %}
+    <script src="{{ url_for('static', filename='js/products.js') }}"></script>
+{% endblock %}
+    
+
+{% block page_content %}
+	<!-- BEGIN: PAGE CONTAINER -->
+	<div class="c-layout-page">
+		<!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+        <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
+            <div class="container">
+                <div class="c-page-title c-pull-left">
+                    <h3 class="c-font-uppercase c-font-sbold">Product Management</h3>
+                </div>
+            </div>
+        </div>
+        <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+		<div class="container">
+            <div class="c-content-panel c-margin-t-40">
+                <div class="c-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-xs btn-success" type="button" id="btn_new"><i class="fa fa-plus"></i> Add New</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-hover table-bordered" id="product_table">
+                                <thead>
+                                    <tr>
+                                        <!-- <th>#</th> -->
+                                        <th>Product Name</th>
+                                        <th>Category</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for product in products %}
+                                        <tr>
+                                            <!-- <td>{{ product._id }}</td> -->
+                                            <td>{{ product.name }}</td>
+                                            <td>{{ product.category }}</td>
+                                            <td>{{ product.description[0:30] }}...</td>
+                                            <td>
+                                                <label class="text-primary">{{ product.price }}</label> <i class="fa fa-euro text-danger"></i>
+                                            </td>
+                                            <td>{{ product.stock }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-xs btn-primary btn_edit" title="Edit" product_id="{{ product._id }}"><i class="fa fa-pencil"></i> Edit</button>
+                                                <button type="button" class="btn btn-xs btn-danger btn_delete" title="Remove" product_id="{{ product._id }}"><i class="fa fa-trash"></i> Remove</button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+		</div>
+	</div>
+	<!-- END: PAGE CONTAINER -->
+
+    <div class="modal fade" id="NewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content c-square">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Product Edit</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="product_form" method="POST" action="/admin/product/save">
+                        <input type="hidden" name="product_id" id="product_id">
+                        <div class="form-group">
+                            <label for="product_name" class="control-label">Product Name</label> <span class="required">*</span>
+                            <input type="text" class="form-control c-square" id="product_name" name="product_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="category" class="control-label">Category</label> <span class="required">*</span>
+                            <select name="category" id="category" class="form-control c-square">
+                                <option value="">Select a category</option>
+                                
+                                {% for category in categories %}
+                                    <option value="{{ category.name }}">{{ category.name }}</option>
+                                {% endfor %}
+                                    
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="control-label">Price</label> <span class="required">*</span>
+                            <input type="number" class="form-control c-square" id="price" name="price">
+                        </div>
+                        <div class="form-group">
+                            <label for="stock" class="control-label">Stock</label> <span class="required">*</span>
+                            <input type="number" class="form-control c-square" id="stock" name="stock">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="control-label">Description</label> <span class="required">*</span>
+                            <textarea class="form-control  c-square" id="description" name="description" rows="5"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn c-theme-btn c-btn-square c-btn-bold c-btn-uppercase" id="btn_save">Submit</button>
+                    <button type="button" class="btn c-theme-btn c-btn-border-2x c-btn-square c-btn-bold c-btn-uppercase" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+	

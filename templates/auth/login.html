@@ -1,0 +1,82 @@
+{% extends 'layout/layout.html' %}
+
+
+{% block page_js %}
+    <script src="{{ url_for('static', filename='js/sign.js') }}"></script>
+{% endblock %}
+    
+
+{% block page_content %}
+    <!-- BEGIN: PAGE CONTAINER -->
+	<div class="c-layout-page">
+		<!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+<div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
+	<div class="container">
+		<div class="c-page-title c-pull-left">
+			<h3 class="c-font-uppercase c-font-sbold">Customer Login</h3>
+		</div>
+	</div>
+</div><!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+		<!-- BEGIN: PAGE CONTENT -->
+		<!-- BEGIN: CONTENT/SHOPS/SHOP-LOGIN-REGISTER-1 -->
+<div class="c-content-box c-size-md c-bg-white">
+	<div class="container">
+		<div class="c-shop-login-register-1">
+			<div class="row">
+				<div class="col-md-6 col-md-push-3">
+					<div class="panel panel-default c-panel">
+						<div class="panel-body c-panel-body">
+							<div class="c-content-title-1">
+								<h3 class="c-center">Sign in</h3>
+							</div>
+							<form class="c-form-login" id="login_form" method="POST" action="/signin">
+								{% with messages = get_flashed_messages()  %}
+                                    {% if messages %}
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        {{ messages[0] }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </div>
+                                    {% endif %}
+                                {% endwith %}
+								<div class="form-group has-feedback">
+									<input type="text" class="form-control c-square c-theme input-lg" placeholder="Username or E-mail" id="name" name="name">
+									<span class="glyphicon glyphicon-user form-control-feedback c-font-grey"></span>
+								</div>
+								<div class="form-group has-feedback">
+									<input type="password" class="form-control c-square c-theme input-lg" placeholder="Password" id="password" name="password">
+									<span class="glyphicon glyphicon-lock form-control-feedback c-font-grey"></span>
+								</div>
+								<div class="row c-margin-t-40">
+									<div class="col-xs-8">
+										<div class="c-checkbox">
+											<input type="checkbox" id="checkbox1-77" class="c-check">
+											<label for="checkbox1-77"> <span class="inc"></span>
+												<span class="check"></span> <span class="box"></span> Remember me
+											</label>
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<button type="button" class="pull-right btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" id="btn_login">Login</button>
+									</div>
+								</div>
+								<div class="row c-margin-t-40">
+									<div class="col-md-12">
+										<p>Don't you have your account yet? <a href="/register"><b>Create an Account</b> </a></p>
+									</div>
+									
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: CONTENT/SHOPS/SHOP-LOGIN-REGISTER-1 -->
+  
+		<!-- END: PAGE CONTENT -->
+	</div>
+	<!-- END: PAGE CONTAINER -->
+{% endblock %}
+    

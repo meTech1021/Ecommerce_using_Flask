@@ -1,0 +1,77 @@
+{% extends 'layout/layout.html' %}
+
+
+{% block page_js %}
+    <script src="{{ url_for('static', filename='js/users.js') }}"></script>
+{% endblock %}
+    
+
+{% block page_content %}
+	<!-- BEGIN: PAGE CONTAINER -->
+	<div class="c-layout-page">
+		<!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+        <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
+            <div class="container">
+                <div class="c-page-title c-pull-left">
+                    <h3 class="c-font-uppercase c-font-sbold">User Management</h3>
+                </div>
+            </div>
+        </div>
+        <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+		<div class="container">
+            <div class="c-content-panel c-margin-t-40">
+                <div class="c-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped table-hover table-bordered" id="user_table">
+                                <thead>
+                                    <tr>
+                                        <!-- <th>#</th> -->
+                                        <th>Username</th>
+                                        <th>E-mail</th>
+                                        <th>SSN</th>
+                                        <th>Role</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for user in users %}
+                                        <tr>
+                                            <!-- <td>{{ user._id }}</td> -->
+                                            <td>{{ user.username }}</td>
+                                            <td>{{ user.email }}</td>
+                                            <td>{{ user.ssn }}</td>
+                                            <td>
+                                                {% if user.role == 'administrator' %}
+                                                <span class="label label-success c-font-slim c-font-uppercase c-font-bold">{{ user.role }}</span>
+                                                {% else %}
+                                                <span class="label label-primary c-font-slim c-font-uppercase c-font-bold">{{ user.role }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                
+                                                {% if user.role == 'administrator' %}
+                                                    <button class="btn btn-xs c-btn-purple-1 admin_to_user" type="button" user_id="{{ user._id }}">Admin <i class="fa fa-angle-double-right"></i> User</button>
+                                                {% else %}
+                                                    <button class="btn btn-xs btn-info user_to_admin" type="button" user_id="{{ user._id }}">User <i class="fa fa-angle-double-right"></i> Admin</button>
+                                                {% endif %}
+                                                    
+                                                <button type="button" class="btn btn-xs btn-danger btn_delete" title="Remove" user_id="{{ user._id }}"><i class="fa fa-trash"></i> Remove</button>
+                                            </td>
+                                        </tr>
+                                        
+                                    {% endfor %}
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+		</div>
+	</div>
+	<!-- END: PAGE CONTAINER -->
+{% endblock %}
+	

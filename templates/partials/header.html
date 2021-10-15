@@ -1,0 +1,91 @@
+	<!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
+<!-- BEGIN: HEADER -->
+<header class="c-layout-header c-layout-header-4 c-layout-header-default-mobile" data-minimize-offset="80">
+    <div class="c-navbar">
+        <div class="container">
+            <!-- BEGIN: BRAND -->
+            <div class="c-navbar-wrapper clearfix">
+                <div class="c-brand c-pull-left">
+                    <a href="/" class="c-logo">
+                        <h1>Pharmacy</h1>
+                    </a>
+                    <button class="c-hor-nav-toggler" type="button" data-target=".c-mega-menu">
+                    <span class="c-line"></span>
+                    <span class="c-line"></span>
+                    <span class="c-line"></span>
+                    </button>
+                    <button class="c-topbar-toggler" type="button">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button>
+                    
+                    {% if session.username %}
+                    <button class="c-cart-toggler" type="button">
+                        <i class="icon-handbag"></i> <span class="c-cart-number c-theme-bg cart_cnt">{{ session.shopping_cart|length }}</span>
+                    </button>
+                    {% endif %}
+                </div>
+                <!-- END: BRAND -->				
+                <!-- BEGIN: HOR NAV -->
+                <!-- BEGIN: LAYOUT/HEADERS/MEGA-MENU -->
+                <!-- BEGIN: MEGA MENU -->
+                <!-- Dropdown menu toggle on mobile: c-toggler class can be applied to the link arrow or link itself depending on toggle mode -->
+                <nav class="c-mega-menu c-pull-right c-mega-menu-dark c-mega-menu-dark-mobile c-fonts-uppercase c-fonts-bold">
+                    <ul class="nav navbar-nav c-theme-nav"> 
+                        
+                        {% if session.username %}
+                            
+                            {% if session.role == 'administrator' %}
+                            <li >
+                                <a href="/admin/users" class="c-link dropdown-toggle"><i class="icon-users"></i> Users</a>                     
+                            </li>
+                            <li >
+                                <a href="/admin/categories" class="c-link dropdown-toggle"><i class="fa fa-tags"></i> Categories</a>                     
+                            </li>
+                            <li >
+                                <a href="/admin/products" class="c-link dropdown-toggle"><i class="icon-present"></i> Products</a>                     
+                            </li>
+                            {% else %}
+                            <li >
+                                <a href="/" class="c-link dropdown-toggle"><i class="icon-present"></i> Shop</a>                     
+                            </li>
+                            <li >
+                                <a href="/order_history" class="c-link dropdown-toggle"><i class="fa fa-history"></i> Order History</a>                     
+                            </li>
+                            <li class="c-cart-toggler-wrapper">
+                                <a  href="#" class="c-btn-icon c-cart-toggler"><i class="icon-handbag c-cart-icon"></i> <span class="c-cart-number c-theme-bg cart_cnt">{{ session.shopping_cart|length }}</span></a>
+                            </li>
+                            {% endif %}
+                                
+                        
+                        {% endif %}
+                        
+                        <li>
+                            
+                            {% if session.username %}
+                            <a href="/logout" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-dark c-btn-circle c-btn-uppercase c-btn-sbold"><i class="icon-logout"></i> {{ session.username }} | Logout</a>
+                            {% else %}
+                            <a href="/" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-dark c-btn-circle c-btn-uppercase c-btn-sbold"><i class="icon-login"></i> Sign in</a>    
+                            {% endif %}
+                        </li>
+                    </ul>
+                </nav>
+                <!-- END: MEGA MENU -->
+                <!-- END: LAYOUT/HEADERS/MEGA-MENU -->
+                <!-- END: HOR NAV -->		
+            </div>			
+            <!-- BEGIN: LAYOUT/HEADERS/QUICK-CART -->
+            <!-- BEGIN: CART MENU -->
+            <div class="c-cart-menu">
+                <div class="c-cart-menu-title">
+                    <p class="c-cart-menu-float-l c-font-sbold"><b class="cart_cnt" id="cart_cnt">{{ session.shopping_cart|length }}</b> item(s)</p>
+                    
+                </div>
+                <div class="c-cart-menu-footer">
+                    <button type="button" class="btn btn-md c-btn c-btn-square c-theme-btn c-font-white c-font-bold c-center c-font-uppercase" id="btn_view_cart"><i class="fa fa-shopping-cart"></i> View Cart</button>
+                </div>
+            </div>
+            <!-- END: CART MENU --><!-- END: LAYOUT/HEADERS/QUICK-CART -->
+        </div>
+    </div>
+</header>
+<!-- END: HEADER --><!-- END: LAYOUT/HEADERS/HEADER-1 -->

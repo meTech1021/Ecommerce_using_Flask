@@ -1,0 +1,150 @@
+{% extends 'layout/layout.html' %}
+
+
+{% block page_js %}
+    <script src="{{ url_for('static', filename='js/shop.js') }}"></script>
+{% endblock %}
+    
+
+{% block page_content %}
+	<!-- BEGIN: PAGE CONTAINER -->
+	<div class="c-layout-page">
+		<!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+        <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
+            <div class="container">
+                <div class="c-page-title c-pull-left">
+                    <h3 class="c-font-uppercase c-font-sbold">Product Search</h3>
+                </div>
+            </div>
+        </div>
+        <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+		<div class="container">
+			<div class="c-layout-sidebar-menu c-theme ">
+                <!-- BEGIN: LAYOUT/SIDEBARS/SHOP-SIDEBAR-MENU-2 -->
+                <div class="c-sidebar-menu-toggler">
+                    <h3 class="c-title c-font-uppercase c-font-bold">Navigation</h3>
+                    <a href="javascript:;" class="c-content-toggler" data-toggle="collapse" data-target="#sidebar-menu-1">		     		
+                    <span class="c-line"></span>
+                    <span class="c-line"></span>
+                    <span class="c-line"></span>
+                    </a>
+                </div>
+
+                <!-- BEGIN: CONTENT/SHOPS/SHOP-FILTER-SEARCH-1 -->
+                <ul class="c-shop-filter-search-1 list-unstyled">
+                    <li>
+                        <label class="control-label c-font-uppercase c-font-bold">Category</label>
+                        <select class="form-control c-square c-theme" id="category">
+                            <option value="">All Categories</option>
+                            
+                            {% for category in categories %}
+                                <option value="{{ category.name }}">{{ category.name }}</option>
+                            {% endfor %}
+                                
+                        </select>
+                    </li>
+                    <li>
+                        <label class="control-label c-font-uppercase c-font-bold">Product Name</label>
+                        <input type="text" class="form-control c-square c-theme" name="product_name" id="product_name" placeholder="Product Name">
+                    </li>
+                    <li>
+                        <label class="control-label c-font-uppercase c-font-bold">Price Range</label>
+                        <div class="c-price-range-box input-group">
+                            <div class="c-price input-group col-md-6 pull-left">
+                                <span class="input-group-addon c-square c-theme"><i class="fa fa-euro"></i></span>
+                                <input type="number" class="form-control c-square c-theme" placeholder="from" id="price_from" name="price_from">
+                            </div>
+                            <div class="c-price input-group col-md-6 pull-left">
+                                <span class="input-group-addon c-square c-theme"><i class="fa fa-euro"></i></span>
+                                <input type="number" class="form-control c-square c-theme" placeholder="to" id="price_to" name="price_to">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="control-label c-font-uppercase c-font-bold">Exclude words</label>
+                        <input type="text" class="form-control c-square c-theme" name="description" id="description" placeholder="Enter exclude word of description.">
+                    </li>
+                </ul>
+                <!-- END: CONTENT/SHOPS/SHOP-FILTER-SEARCH-1 -->
+                <!-- END: LAYOUT/SIDEBARS/SHOP-SIDEBAR-MENU-2 -->
+			</div>
+            <div class="c-margin-t-30"></div>
+			<div class="c-layout-sidebar-content " id="products_body">
+                <!-- BEGIN: PAGE CONTENT -->
+                
+                <table class="table table-hover" id="product_table">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for product in products %}
+                            <tr>
+                                <td><b>{{ product.name }}</b></td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.description }}</td>
+                                <td>
+                                    <label class="text-primary">{{ product.price }}</label> <i class="fa fa-euro text-danger"></i>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-xs btn-success btn_cart" title="Add Cart" category="{{ product.category }}" price="{{ product.price }}" stock="{{ product.stock }}" product_name="{{ product.name }}" product_id="{{ product._id }}"><i class="fa fa-shopping-cart"></i> Add Cart</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                            
+                    </tbody>
+                </table>
+                    	
+                <!-- END: PAGE CONTENT -->
+			</div>
+		</div>
+	</div>
+	<!-- END: PAGE CONTAINER -->
+
+    <div class="modal fade" id="CartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content c-square">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="product_title"></h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="c-input-group c-spinner">
+                                    <p class="c-product-meta-label c-product-margin-2 c-font-uppercase c-font-bold">QTY:</p>
+                                    <input type="text" class="form-control c-item-1" id="stock" value="1">
+                                    <div class="c-input-group-btn-vertical">
+                                        <button class="btn btn-default btn_control" id="btn_up" type="button" data_input="c-item-1"><i class="fa fa-caret-up"></i></button>
+                                        <button class="btn btn-default btn_control" type="button" data_input="c-item-1"><i class="fa fa-caret-down"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="c-input-group c-spinner">
+                                    <p class="c-product-meta-label c-product-margin-2 c-font-uppercase c-font-bold">Price:</p>
+                                    <label class="text-danger" style="font-size: 20px;"><i class="fa fa-euro"></i></label><label style="font-size: 20px;" id="price" class="text-info"></label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-success c-btn-bold c-btn-uppercase" id="btn_save"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                    <button type="button" class="btn btn-sm btn-default c-btn-bold c-btn-uppercase" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+	

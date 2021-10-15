@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en"  >
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8"/>
+	<title>Pharmacy</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta content="" name="description"/>
+	<meta content="" name="author"/>
+		<!-- BEGIN GLOBAL MANDATORY STYLES -->
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700&amp;subset=all' rel='stylesheet' type='text/css'>
+	<link href="{{ url_for('static', filename='assets/plugins/socicon/socicon.css') }}" rel="stylesheet" type="text/css"/>
+	<link href="{{ url_for('static', filename='assets/plugins/bootstrap-social/bootstrap-social.css') }}" rel="stylesheet" type="text/css"/>		
+	<link href="{{ url_for('static', filename='assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
+	<link href="{{ url_for('static', filename='assets/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css"/>
+	<link href="{{ url_for('static', filename='assets/plugins/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+	<link href="{{ url_for('static', filename='assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/plugins/select2/select2.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/plugins/bootstrap-toastr/toastr.min.css') }}">
+	<!-- END GLOBAL MANDATORY STYLES -->
+
+    <!-- BEGIN: BASE PLUGINS  -->
+    <link href="{{ url_for('static', filename='assets/plugins/cubeportfolio/css/cubeportfolio.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static', filename='assets/plugins/owl-carousel/assets/owl.carousel.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static', filename='assets/plugins/fancybox/jquery.fancybox.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static', filename='assets/plugins/slider-for-bootstrap/css/slider.css') }}" rel="stylesheet" type="text/css"/>
+    <!-- END: BASE PLUGINS -->
+	
+	
+    <!-- BEGIN THEME STYLES -->
+	<link href="{{ url_for('static', filename='assets/demos/default/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
+	<link href="{{ url_for('static', filename='assets/demos/default/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
+	<link href="{{ url_for('static', filename='assets/demos/default/css/themes/default.css') }}" rel="stylesheet" id="style_theme" type="text/css"/>
+	<link href="{{ url_for('static', filename='assets/demos/index/css/custom.css') }}" rel="stylesheet" type="text/css"/>
+	<!-- END THEME STYLES -->
+
+	<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<body class="c-layout-header-fixed c-layout-header-mobile-fixed"> 
+		
+    {% include 'partials/header.html' %}	
+	
+    {% block page_content %}{% endblock %}
+        
+
+	{% include 'partials/footer.html' %}
+
+	<!-- BEGIN: LAYOUT/FOOTERS/GO2TOP -->
+    <div class="c-layout-go2top">
+        <i class="icon-arrow-up"></i>
+    </div>
+    <!-- END: LAYOUT/FOOTERS/GO2TOP -->
+
+	<div id="overlay">
+		<div class="cv-spinner">
+			<span class="spinner"></span>
+		</div>
+	</div>
+
+	<div class="modal fade" id="MyCartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content c-square">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title"><i class="fa fa-shopping-cart"></i> Shopping Cart</h4>
+                </div>
+                <div class="modal-body">
+					<table class="table table-hover" id="cart_table">
+						<thead>
+							<tr>
+								<th width="30%">Product Name</th>
+								<th width="20%">Category</th>
+								<th width="15%">Price</th>
+								<th width="15%">Amount</th>
+								<th width="20%">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+								
+						</tbody>
+					</table>
+					<div class="row c-margin-t-30">
+						<div class="col-md-12">
+							<label style="font-size: 28px;"> Total Price : </label> <label style="font-size: 28px;" class="text-danger"><i class="fa fa-euro"></i></label> 
+							&nbsp;<label style="font-size: 28px;" id="my_total_price"></label>
+						</div>
+					</div>
+					<div class="row c-margin-t-30" id="purchase_content"><hr>
+						<div class="col-md-12">
+							<form id="purchase_form">
+								<div class="form-group">
+									<label for="card_number" class="control-label">Card Number</label> <span class="required">*</span>
+									<input type="number" class="form-control c-square" id="card_number" name="card_number">
+								</div>
+								<div class="form-group" id="social_div">
+									<label for="social_security" class="control-label">Social Security</label> <span class="required">*</span>
+									<input type="text" class="form-control c-square" id="social_security" name="social_security">
+								</div>
+							</form>
+						</div>
+					</div>
+                </div>
+                <div class="modal-footer" id="cart_footer">
+                    <button type="button" class="btn btn-sm btn-success c-btn-bold c-btn-uppercase" id="btn_purchase"><i class="fa fa-shopping-cart"></i> Purchase</button>
+                    <button type="button" class="btn btn-sm btn-default c-btn-bold c-btn-uppercase" data-dismiss="modal">Close</button>
+                </div>
+				<div class="modal-footer" id="purchase_footer">
+                    <button type="button" class="btn btn-sm btn-danger c-btn-bold c-btn-uppercase" id="btn_pay"><i class="fa fa-credit-card"></i> Pay</button>
+                    <button type="button" class="btn btn-sm btn-default c-btn-bold c-btn-uppercase" id="btn_cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<div class="modal fade" id="ProofModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content c-square">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title"><i class="fa fa-file"></i> Proof of Purchase</h4>
+                </div>
+                <div class="modal-body">
+					<table class="table table-hover" id="order_table">
+						<thead>
+							<tr>
+								<th width="30%">Product Name</th>
+								<th width="20%">Category</th>
+								<th width="15%">Price</th>
+								<th width="15%">Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+								
+						</tbody>
+					</table>
+					<div class="row c-margin-t-30">
+						<div class="col-md-12">
+							<label style="font-size: 28px;"> Total Price : </label> <label style="font-size: 28px;" class="text-danger"><i class="fa fa-euro"></i></label> 
+							&nbsp;<label style="font-size: 28px;" id="my_order_price"></label>
+						</div>
+					</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default c-btn-bold c-btn-uppercase" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+	<!-- BEGIN: LAYOUT/BASE/BOTTOM -->
+    <!-- BEGIN: CORE PLUGINS -->
+	<!--[if lt IE 9]>
+	<script src="{{ url_for('static', filename='assets/global/plugins/excanvas.min.js') }}"></script> 
+	<![endif]-->
+	<script src="{{ url_for('static', filename='assets/plugins/jquery.min.js') }}" type="text/javascript" ></script>
+	<script src="{{ url_for('static', filename='assets/plugins/jquery-migrate.min.js') }}" type="text/javascript" ></script>
+	<script src="{{ url_for('static', filename='assets/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript" ></script>
+	<script src="{{ url_for('static', filename='assets/plugins/jquery.easing.min.js') }}" type="text/javascript" ></script>
+	<script src="{{ url_for('static', filename='assets/plugins/jquery-validation/js/jquery.validate.js') }}" type="text/javascript" ></script>
+	<script src="{{ url_for('static', filename='assets/plugins/reveal-animate/wow.js') }}" type="text/javascript" ></script>
+	<script src="{{ url_for('static', filename='assets/demos/default/js/scripts/reveal-animate/reveal-animate.js') }}" type="text/javascript" ></script>
+
+	<!-- END: CORE PLUGINS -->
+
+    <!-- BEGIN: LAYOUT PLUGINS -->
+	<script type="text/javascript" src="{{ url_for('static', filename='assets/plugins/select2/select2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='assets/plugins/bootbox/bootbox.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='assets/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='assets/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='assets/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='assets/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='assets/plugins/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='assets/plugins/counterup/jquery.counterup.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='assets/plugins/counterup/jquery.waypoints.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='assets/plugins/fancybox/jquery.fancybox.pack.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='assets/plugins/slider-for-bootstrap/js/bootstrap-slider.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='assets/plugins/js-cookie/js.cookie.js') }}" type="text/javascript"></script>
+    <!-- END: LAYOUT PLUGINS -->
+	
+	<!-- BEGIN: THEME SCRIPTS -->
+	<script src="{{ url_for('static', filename='assets/base/js/components.js') }}" type="text/javascript"></script>
+	<script src="{{ url_for('static', filename='assets/base/js/components-shop.js') }}" type="text/javascript"></script>
+	<script src="{{ url_for('static', filename='assets/base/js/app.js') }}" type="text/javascript"></script>
+	<script src="{{ url_for('static', filename='js/header.js') }}" type="text/javascript"></script>
+	<script>
+	$(document).ready(function() {    
+		App.init(); // init core    
+	});
+	</script>
+	
+	{% block page_js %}{% endblock %}
+		
+	<!-- END: THEME SCRIPTS -->
+
+		<!-- END: LAYOUT/BASE/BOTTOM -->
+</body>
+</html>

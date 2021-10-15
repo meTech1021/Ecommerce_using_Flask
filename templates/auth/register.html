@@ -1,0 +1,83 @@
+{% extends 'layout/layout.html' %}
+
+
+{% block page_js %}
+    <script src="{{ url_for('static', filename='js/sign.js') }}"></script>
+{% endblock %}
+    
+
+{% block page_content %}
+    <!-- BEGIN: PAGE CONTAINER -->
+	<div class="c-layout-page">
+		<!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+<div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
+	<div class="container">
+		<div class="c-page-title c-pull-left">
+			<h3 class="c-font-uppercase c-font-sbold">Customer Register</h3>
+		</div>
+	</div>
+</div><!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+		<!-- BEGIN: PAGE CONTENT -->
+		<!-- BEGIN: CONTENT/SHOPS/SHOP-LOGIN-REGISTER-1 -->
+<div class="c-content-box c-size-md c-bg-white">
+	<div class="container">
+		<div class="c-shop-login-register-1">
+			<div class="row">
+				<div class="col-md-6 col-md-push-3">
+					<div class="panel panel-default c-panel">
+						<div class="panel-body c-panel-body">
+							<div class="c-content-title-1">
+								<h3 class="c-left"><i class="icon-user"></i> Don't have an account yet?</h3>
+								<div class="c-line-left c-theme-bg"></div>
+								<p>Join us and enjoy shopping online today.</p>
+							</div>
+							<form class="c-margin-t-20" id="register_form" method="POST" action="/signup">
+                                
+                                {% with messages = get_flashed_messages()  %}
+                                    {% if messages %}
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        {{ messages[0] }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </div>
+                                    {% endif %}
+                                {% endwith %}
+                                    
+								<div class="form-group">
+									<label class="control-label">Name</label> <span class="required">*</span>
+									<input type="text" class="form-control c-square c-theme" placeholder="Name" id="r_name" name="r_name">
+								</div>
+                                <div class="form-group">
+									<label class="control-label">Email</label> <span class="required">*</span>
+									<input type="email" class="form-control c-square c-theme" placeholder="Email" id="r_email" name="r_email">
+								</div>
+                                <div class="form-group">
+									<label class="control-label">Password</label> <span class="required">*</span>
+									<input type="password" class="form-control c-square c-theme" placeholder="Password" id="r_password" name="r_password">
+								</div>
+                                <div class="form-group">
+									<label class="control-label">Confirm Passowrd</label> <span class="required">*</span>
+									<input type="password" class="form-control c-square c-theme" id="confirm_password" name="confirm_password">
+								</div>
+                                <div class="form-group">
+									<label class="control-label">SSN</label> <span class="required">*</span>
+									<input type="number" class="form-control c-square c-theme" name="ssn" id="ssn" placeholder="HHMMEENNNNN">
+                                    <p class="text-danger hidden" id="ssn_span"></p>
+								</div>
+								<div class="form-group c-margin-t-40">
+									<button type="button" class="btn btn-lg c-theme-btn c-btn-square c-btn-uppercase c-btn-bold" id="btn_register">Register</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: CONTENT/SHOPS/SHOP-LOGIN-REGISTER-1 -->
+  
+		<!-- END: PAGE CONTENT -->
+	</div>
+	<!-- END: PAGE CONTAINER -->
+{% endblock %}
+    
